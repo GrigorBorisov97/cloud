@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3308:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  php:
+    image: php:latest
+    ports:
+      - "9001:9000"
+    volumes:
+      - /var/www/cloud/
+    depends_on:
+      - mysql
+      - redis
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+
+  laravel:
+    image: docker.io/bitnami/laravel:10
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mysql
+      - redis
+      - php
+    tty: true
+
+  react:
+    image: node
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "7001:3000"
+    stdin_open: true
+    volumes:
+      - ./frontend:/app
+    tty: true
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6381:6379"
+
+volumes:
+  mysql-data:

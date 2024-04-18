@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+}
+
+.nav-wrapper {
+  width: 512px;
+  height: 93px;
+  box-shadow: 0px 7px 19px -11px #a8a8a8a1;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  border-radius: 50px;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+.nav-button {
+  display: flex;
+  background: unset;
+  border: unset;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 10px;
+  font-size: 16px;  
+  padding: 16px 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: scale(1);
+  transition: 0.2s ease-out;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  transform: scale(1.1);
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 480px auto;
+  height: 100vh;
+}
+
+.main-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.folder-container {
+  height: calc(100vh - 77px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-container {
+  background-color: whitesmoke;
+  flex: 1;
+  margin-bottom: 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.file-container-absolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  overflow: auto;
+}
+
+.aside {
+  padding: 20px;
+  background: #fafafa;
+}
+
+.folder {
+  display: flex;
+  align-items: center;
+  grid-gap: 15px;
+  font-size: 20px;
+  margin-bottom: 5px;
+  background: #efefef;
+  padding: 2px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.folder:hover {
+  background-color: #d0d0d0;
+}
+
+.admin-container {
+  display: flex;
+  grid-gap: 15px;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  margin-bottom: 40px;
+}
+
+.folder-info-container {
+  box-shadow: 0px 7px 19px -11px #a8a8a8a1;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  grid-gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.files-container {
+  margin: 10px 20px 0;
+}
+
+.file {
+  display: flex;
+  grid-gap: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.file::selection {
+  background-color: transparent;
+}
+
+.file:last-of-type {
+  border-bottom: unset;
+}
