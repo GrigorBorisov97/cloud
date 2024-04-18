@@ -12,7 +12,12 @@ import ContentPaste from '@mui/icons-material/ContentPaste';
 import Cloud from '@mui/icons-material/Cloud';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 
-function RightClickMenu(props) {
+
+interface RightClickMenuProps {
+  element?: HTMLElement|null
+}
+
+function RightClickMenu(props: RightClickMenuProps) {
   const [show, setShow] = useState(false);
   const [cord, setCord] = useState({x: 0, y: 0});
 

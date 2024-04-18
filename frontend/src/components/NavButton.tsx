@@ -1,6 +1,12 @@
 import React from 'react';
 
-const NavButton = (props) => {
+interface NavButtonProps {
+    filename: string;
+    content: string;
+    onAction: Function;
+}
+
+const NavButton = (props: NavButtonProps) => {
     const filename = require('../assets/images/' + props.filename + '.png');
 
     return (

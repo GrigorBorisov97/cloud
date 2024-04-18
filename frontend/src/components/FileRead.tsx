@@ -1,8 +1,14 @@
-import { useEffect } from 'react';
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
+interface FileReadProps {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    filePath: string;
+}
 
 const style = {
     position: 'absolute',
@@ -16,13 +22,13 @@ const style = {
     p: 4,
 };
 
-const FileRead = (props) => {
+const FileRead = (props: FileReadProps) => {
     useEffect(() => {
         if (props.isOpen)
             getFile(props.filePath);
     }, [props.isOpen]);
 
-    const getFile = async (filePath) => {
+    const getFile = async (filePath: string) => {
         const req = await fetch('http://31.220.81.184:8001/api/getFile?filePath=' + encodeURIComponent(filePath));
         // const resp = await req.json();
         

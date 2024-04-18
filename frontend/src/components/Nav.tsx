@@ -1,14 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useRef, Dispatch, SetStateAction } from 'react';
 import { FaFolderPlus, FaUpload, FaDownload, FaFileCode, FaCopy, FaEdit, FaRemoveFormat } from "react-icons/fa";
 import NavButton from './NavButton';
 import RightClickMenu from './RightClickMenu';
 
-const Nav = (props) => {
+interface NavProps {
+    activeFolder: string;
+    fileActions: boolean;
+    activeFile: string;
+    setRefresh: Dispatch<SetStateAction<number>>;
+}
+
+const Nav = (props: NavProps) => {
     const fileUploadRef = useRef(null);
     const selectedPath = props.activeFolder;
 
     const newFolder = async () => {
-        const folderName = prompt('Please enter folder name');
+        const folderName = prompt('Please enter folder name') as string;
         const data = new FormData();
         
         data.append('path', selectedPath);
@@ -23,12 +30,12 @@ const Nav = (props) => {
 
         if (resp.status == 'success') {
             alert('Successfully created');
-            props.setRefresh((ref) => ref + 1);
+            props.setRefresh((ref:number) => ref + 1);
         }
     }
 
     const renameFolder = async () => {
-        const folderName = prompt('Please enter new folder name');
+        const folderName = prompt('Please enter new folder name') as string;
         const data = new FormData();
         
         data.append('path', selectedPath);
@@ -41,13 +48,15 @@ const Nav = (props) => {
         const resp = await req.json();
 
         if (resp.status == 'success') {
-            props.setRefresh((ref) => ref + 1);
+            props.setRefresh((ref: number) => ref + 1);
         }
     }
 
     const deleteFolder = async () => {
         let text = "Are you sure you want to delete this folder? \n Press OK to proccees.";
-        if (confirm(text) == false) return;
+        
+        let confirmDialog = false;
+        if (confirmDialog == false) return;
 
         const req = await fetch(`http://31.220.81.184:8001/api/deleteFolder?path=${encodeURIComponent(selectedPath)}`, {
             method: 'DELETE'
@@ -57,18 +66,31 @@ const Nav = (props) => {
 
         if (resp.status == 'success') {
             alert('Successfully deleted');
-            props.setRefresh((ref) => ref + 1);
+            props.setRefresh((ref: number) => ref + 1);
         }
     }
 
     const openFileUpload = () => {
-        fileUploadRef.current.click();
+        const fileUploadElement = fileUploadRef.current as unknown;
+
+        if (fileUploadElement instanceof HTMLInputElement) {
+            fileUploadElement.click();
+        }
     }
 
     const uploadFiles = async () => {
         const data = new FormData();
-        const files = fileUploadRef.current.files;
 
+        const fileUploadElement = fileUploadRef.current as unknown;
+
+        if (!(fileUploadElement instanceof HTMLInputElement)) {
+            return;
+        } 
+        
+        const files: FileList|null = fileUploadElement.files;
+
+        if (files === null) return;
+        
         for (let i = 0; i < files.length; i++)
             data.append('files[]', files[i]);
 
@@ -82,7 +104,7 @@ const Nav = (props) => {
         const resp = await req.json();
 
         if (resp.status === 'success') {
-            props.setRefresh((ref) => ref + 1);
+            props.setRefresh((ref:number) => ref + 1);
         }
     }
 
@@ -95,7 +117,7 @@ const Nav = (props) => {
         }
         
         const blob = await response.blob();
-        const disposition = response.headers.get('Content-Disposition');
+        const disposition = response.headers.get('Content-Disposition') as string;
         const filenameRegex = /filename[^;=\n]*=([^\n]*)/;
         const matches = filenameRegex.exec(disposition);
 
@@ -128,7 +150,7 @@ const Nav = (props) => {
 
         if (resp.status == 'success') {
             alert('deleted successfully');
-            props.setRefresh((ref) => ref + 1);
+            props.setRefresh((ref: number) => ref + 1);
         } else alert('cannot be deleted');
     }
 

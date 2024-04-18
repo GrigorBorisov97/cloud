@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import Files from '../components/Files';
 import Folders from '../components/Folders';
 
-const Explorer = (user) => {
+import { UserAccountInterface, FolderInfoResponse } from '../types/interfaces';
+
+interface ExplorerProps {
+    user: UserAccountInterface;
+}
+
+const Explorer = (user: ExplorerProps) => {
     const [refresh, setRefresh] = useState(1);
     const [activeFolder, setActiveFolder] = useState('');
     const [fileActions, setFileActions] = useState(true);
-    const [folderInfo, setFolderInfo] = useState();
-
-    console.log(activeFolder);
+    const [folderInfo, setFolderInfo] = useState<FolderInfoResponse | undefined>();
 
     return (
         <div className='main-container'>
@@ -17,7 +21,7 @@ const Explorer = (user) => {
                 activeFolder={activeFolder}
                 setActiveFolder={setActiveFolder}
                 setFileActions={setFileActions}
-                setFolderInfo={(v) => setFolderInfo(v)}
+                setFolderInfo={(v: FolderInfoResponse) => setFolderInfo(v)}
                 refresh={refresh}
             />
             <Files

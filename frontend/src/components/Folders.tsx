@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import useFetch from '../hooks/useFetch';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 import Folder from './Folder';
 import Admin from './Admin';
 
+import { FolderInfoResponse } from '../types/interfaces';
 
-const Folders = (props) => {
-    const [data, setData] = useState(false);
+interface FoldersProps {
+    activeFolder: string;
+    setFileActions: Dispatch<SetStateAction<boolean>>;
+    setActiveFolder: Dispatch<SetStateAction<string>>;
+    setFolderInfo: (val: FolderInfoResponse) => void;
+    refresh: number;
+}
+
+const Folders = (props: FoldersProps) => {
+    const [data, setData] = useState<string[]|false>(false);
     const [loading, setLoading] = useState(false);
-    const [paths, setPaths] = useState([]);
+    const [paths, setPaths] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
         fetchFolders();
@@ -22,9 +30,9 @@ const Folders = (props) => {
     useEffect(() => {
         if (loading || !data) return;
         
-        const tmpPath = [];
-        function traverseDirectory(directoryStructure, currentPath = '', margin = 0) {
-            directoryStructure.forEach(item => {
+        const tmpPath: JSX.Element[] = [];
+        function traverseDirectory(directoryStructure: string[], currentPath = '', margin = 0) {
+            directoryStructure.forEach((item: string|string[]) => {
                 if (typeof item === 'string') {
                     tmpPath.push(
                         <Folder
@@ -43,7 +51,7 @@ const Folders = (props) => {
 
                     tmpPath.push(
                         <Folder 
-                            key={item}
+                            key={item as any}
                             margin={margin}
                             name={parentFolder}
                             hasChildren={true}
@@ -73,7 +81,7 @@ const Folders = (props) => {
         setLoading(false);
     }
 
-    const fetchFolderInfo = async (path) => {
+    const fetchFolderInfo = async (path: string) => {
         props.setActiveFolder(() => path);
 
         const data = new URLSearchParams();

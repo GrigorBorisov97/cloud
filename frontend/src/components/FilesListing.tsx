@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, Dispatch, SetStateAction } from 'react';
+
 import FileImg from '../assets/images/file.png'
 import FileImgPNG from '../assets/images/image.png'
 import FileImgVideo from '../assets/images/video.png'
@@ -6,11 +7,29 @@ import FileImgTxt from '../assets/images/txt-file.png'
 
 import RightClickMenu from './RightClickMenu';
 
+import { FolderInfoResponse } from '../types/interfaces';
+import { JsxElement } from 'typescript';
 
-const FilesListing = (props) => {
+
+interface FilesListingProps {
+    folderInfo: FolderInfoResponse|undefined;
+    setFileActions: Dispatch<SetStateAction<boolean>>;
+    activeFile: string;
+    setActiveFile: Dispatch<SetStateAction<string>>;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+interface FileProps {
+    name: string;
+    handleActiveFileChange: (val: string) => void;
+    activeFile: string;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const FilesListing = (props: FilesListingProps) => {
 
     const files = props.folderInfo?.files ?? [];
-    let listing = [];
+    let listing = [] as JSX.Element[];
 
     files.forEach(file => {
         listing.push((
@@ -22,7 +41,7 @@ const FilesListing = (props) => {
             />));
     })
 
-    function handleActiveFileChange(filename) {
+    function handleActiveFileChange(filename: string) {
         props.setActiveFile(filename);
         props.setFileActions(true);
     }
@@ -36,11 +55,11 @@ const FilesListing = (props) => {
     )
 }
 
-const File = ({name, handleActiveFileChange, activeFile, setIsOpen}) => {
+const File = ({name, handleActiveFileChange, activeFile, setIsOpen}: FileProps) => {
     const fileContainerRef = useRef(null);
     const nameSplit = name.split('.');
     const extension = '.' + nameSplit[nameSplit.length - 1];
-    let image;
+    let image: any;
     let isDoubleClick = false;
 
     const handleDoubleClick = () => {

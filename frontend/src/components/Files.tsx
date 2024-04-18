@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, SetStateAction, Dispatch  } from 'react';
 import Nav from './Nav';
 import FolderInfo from './FolderInfo';
 import FilesListing from './FilesListing';
@@ -10,7 +10,17 @@ import FileImgPNG from '../assets/images/image.png'
 import FileImgVideo from '../assets/images/video.png'
 import FileImgTxt from '../assets/images/txt-file.png'
 
-const Files = (props) => {
+import { FolderInfoResponse } from '../types/interfaces';
+
+interface FilesProps {
+    activeFolder: string;
+    fileActions: boolean;
+    setFileActions: Dispatch<SetStateAction<boolean>>;
+    folderInfo: FolderInfoResponse|undefined;
+    setRefresh: Dispatch<SetStateAction<number>>;
+}
+
+const Files = (props: FilesProps) => {
     const [activeFile, setActiveFile] = useState('');
     const [openFile, setOpenFile] = useState(false);
 

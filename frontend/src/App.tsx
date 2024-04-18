@@ -9,7 +9,7 @@ import Explorer from './pages/Explorer';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Explorer />,
+    element: <Explorer user={{username: 'grigor'}} />,
   },
   {
     path: "/upload",
