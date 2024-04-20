@@ -23,4 +23,4 @@ jobs:
       run: composer install --working-dir=backend --no-interaction --no-suggest
 
     - name: Run PHPUnit tests
-      run: php backend/artisan test
+      run: cd backend && php artisan test
