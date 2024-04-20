@@ -34,7 +34,7 @@ class FolderController extends Controller
         $folders = $this->cleanFolder($this->path);
         $this->foldersCrawler($folders, $this->path . '/');
         
-        echo json_encode($this->convertPathToArray($this->folder_structure));
+        return response()->json($this->convertPathToArray($this->folder_structure));
     }
 
     public function getInfo(Request $request)
@@ -72,7 +72,7 @@ class FolderController extends Controller
             }
         }
         
-        echo json_encode([
+        return response()->json([
             'files' => $files,
             'folder_size' => $formated_size
         ]);
