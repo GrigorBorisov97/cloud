@@ -34,7 +34,7 @@ jobs:
       - name: Set Laravel Env Key
         run: |
           echo "APP_KEY=base64:$(openssl rand -base64 32)" > .env
-          docker cp .env cloud-laravel:/path/to/your/laravel/project
+          docker cp .env cloud-laravel:/app
       
       - name: Generate Laravel key
         run: docker exec cloud-laravel php artisan key:generate
