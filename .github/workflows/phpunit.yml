@@ -22,5 +22,8 @@ jobs:
     - name: Install Composer dependencies
       run: composer install --working-dir=backend --no-interaction --no-suggest
 
+    - name: Generate encryption key
+      run: php artisan key:generate
+
     - name: Run PHPUnit tests
       run: cd backend && php artisan test
