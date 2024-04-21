@@ -31,6 +31,10 @@ class FolderController extends Controller
     
     public function getFolders()
     {
+        if (!is_dir($this->path)) {
+            return response()->json(['error' => 'Directory does not exist'], 404);
+        }
+
         $folders = $this->cleanFolder($this->path);
         $this->foldersCrawler($folders, $this->path . '/');
         

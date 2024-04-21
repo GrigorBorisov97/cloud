@@ -28,9 +28,10 @@ class FolderTest extends TestCase
 
         $controller = new FolderController();
         $response = $controller->getFolders($request);
-        
+     
+        $this->assertEquals(404, $response->getStatusCode());
         $this->assertNotNull($response);
-        
+
         $jsonResponse = json_encode($response);
         
         $this->assertJson($jsonResponse);
