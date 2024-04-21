@@ -10,20 +10,6 @@ jobs:
     name: Run Jest tests
     runs-on: ubuntu-latest
 
-    services:
-      react:
-        image: node
-        container_name: cloud-react
-        build:
-          context: frontend
-          dockerfile: ./Dockerfile
-        ports:
-          - "7001:3000"
-        stdin_open: true
-        volumes:
-          - ./frontend:/app
-        tty: true
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
