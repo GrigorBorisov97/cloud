@@ -12,12 +12,6 @@ jobs:
   react_tests:
     runs-on: ubuntu-latest
 
-    services:
-      redis:
-        image: redis:latest
-        ports:
-          - 6381:6379
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -45,3 +39,6 @@ jobs:
       - name: Test Laravel
         run: docker exec cloud-laravel php artisan test
 
+      - name: Update Kubernetes Deployment
+        run: |
+          kubectl set image deployment/your_deployment_name your_container_name=your_image_tag
