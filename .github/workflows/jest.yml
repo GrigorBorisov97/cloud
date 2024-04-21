@@ -1,24 +1,38 @@
-name: Run tests in docker
+name: React Tests
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test:
-    name: Run tests in docker
+  react_tests:
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6381:6379
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: adambirds/docker-compose-action@v1.3.0
-        with:
-          compose-file: "./docker-compose.yaml"
-          services: |
-            laravel
-            react
-          test-container: laravel
-          test-command: "php artisan test"
-      - name: Check containers
-        run: docker-compose logs
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build React Container
+        run: docker-compose -f docker-compose.yml build react
+
+      - name: Start React Container
+        run: docker-compose -f docker-compose.yml up -d react
+
+      - name: Wait for React to be ready
+        run: docker-compose -f docker-compose.yml exec -T react /bin/bash -c "while ! nc -z localhost 3000; do sleep 1; done;"
+
+      - name: Install Node Modules
+        run: docker-compose -f docker-compose.yml exec -T react npm install
+
+      - name: Run React Tests
+        run: docker-compose -f docker-compose.yml exec -T react npm test
