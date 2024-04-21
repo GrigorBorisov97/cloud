@@ -21,7 +21,7 @@ jobs:
         run: docker ps
 
       - name: Run Jest tests
-        run: docker exec cloud-laravel-1 php artisan test
+        run: docker exec cloud-laravel php artisan test
 
       - name: Stop and remove React container
         run: docker-compose down react
