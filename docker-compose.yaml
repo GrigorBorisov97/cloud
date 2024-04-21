@@ -42,8 +42,6 @@ services:
       - /app/vendor
     depends_on:
       - mysql
-      - redis
-      - php
     tty: true
 
   react:
