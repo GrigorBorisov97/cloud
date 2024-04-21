@@ -30,8 +30,11 @@ jobs:
       - name: Check containers
         run: docker ps
 
+      - name: Check containers
+        run: docker exec cloud-react ls
+
       - name: Run Jest tests
-        run: docker exec cloud_react_1 npm test
+        run: docker exec cloud-react npm test
 
       - name: Stop and remove React container
         run: docker-compose down react

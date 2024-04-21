@@ -43,6 +43,7 @@ services:
 
   react:
     image: node
+    container_name: cloud-react
     build:
       context: frontend
       dockerfile: ./Dockerfile
