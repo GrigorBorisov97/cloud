@@ -18,6 +18,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy composer.json and composer.lock and install dependencies before copying code for better caching
 COPY composer.json composer.lock ./
 
+COPY .env.example .env
+
 # Install Composer dependencies
 RUN composer install --no-scripts
 
