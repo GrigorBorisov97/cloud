@@ -12,7 +12,7 @@ COPY package.json .
 COPY package-lock.json .
 
 # Install npm dependencies
-RUN npm install
+RUN npm install --force
 
 # Copy the rest of the application code into the container
 COPY . .
