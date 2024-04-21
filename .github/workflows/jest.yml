@@ -16,8 +16,8 @@ jobs:
         with:
           compose-file: "./docker-compose.yaml"
           services: |
-          laravel
-          react
+            laravel
+            react
       
       - name: Check containers
         run: docker-compose logs
