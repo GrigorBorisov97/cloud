@@ -24,7 +24,7 @@ jobs:
         run: docker exec cloud-react ls
       
       - name: List logs
-        run: docker-compose logs cloud-react
+        run: docker logs cloud-react
 
       - name: Run Jest tests
         run: docker exec -w /app cloud-react npm test
