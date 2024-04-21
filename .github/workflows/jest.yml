@@ -20,8 +20,30 @@ jobs:
       - name: Check containers
         run: docker ps
 
-      - name: Run Jest tests
-        run: docker exec cloud-laravel php artisan test
+      - name: Sleep
+        run: sleep 2s
+      - name: Check containers
+        run: docker ps
+
+      - name: Sleep
+        run: sleep 2s
+      - name: Check containers
+        run: docker ps
+
+      - name: Sleep
+        run: sleep 2s
+      - name: Check containers
+        run: docker ps
+
+      - name: Sleep
+        run: sleep 2s
+      - name: Check containers
+        run: docker ps
+
+      - name: Sleep
+        run: sleep 2s
+      # - name: Run Jest tests
+      #   run: docker exec cloud-laravel php artisan test
 
       - name: Stop and remove React container
         run: docker-compose down react
