@@ -20,14 +20,8 @@ jobs:
       - name: Check containers
         run: docker ps
 
-      - name: List folders
-        run: docker exec cloud-react ls
-      
-      - name: List logs
-        run: docker logs cloud-react
-
       - name: Run Jest tests
-        run: docker exec cloud-react npm test
+        run: docker exec cloud-laravel-1 php artisan test
 
       - name: Stop and remove React container
         run: docker-compose down react
