@@ -20,38 +20,5 @@ jobs:
             react
           test-container: laravel
           test-command: "php artisan test"
-      # - name: Check containers
-      #   run: docker-compose logs
-
-
-      # - name: Sleep
-      #   run: sleep 2s
-      # - name: Check containers
-      #   run: docker-compose logs
-
-
-      # - name: Sleep
-      #   run: sleep 2s
-      # - name: Check containers
-      #   run: docker-compose logs
-
-
-      # - name: Sleep
-      #   run: sleep 2s
-      # - name: Check containers
-      #   run: docker-compose logs
-
-
-      # - name: Sleep
-      #   run: sleep 2s
-      # - name: Check containers
-      #   run: docker-compose logs
-
-
-      # - name: Sleep
-      #   run: sleep 2s
-      # # - name: Run Jest tests
-      # #   run: docker exec cloud-laravel php artisan test
-
-      # - name: Stop and remove React container
-      #   run: docker-compose down react
+      - name: Check containers
+        run: docker-compose logs
