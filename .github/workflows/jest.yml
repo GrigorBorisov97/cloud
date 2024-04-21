@@ -16,6 +16,9 @@ jobs:
 
       - name: Build and run React app in Docker
         run: docker-compose up -d react
+      
+      - name: Check containers
+        run: docker ps
 
       - name: Wait for React app to start
         run: sleep 30s
