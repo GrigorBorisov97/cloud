@@ -18,27 +18,32 @@ jobs:
         run: docker-compose up -d
       
       - name: Check containers
-        run: docker ps
+        run: docker-compose logs
+
 
       - name: Sleep
         run: sleep 2s
       - name: Check containers
-        run: docker ps
+        run: docker-compose logs
+
 
       - name: Sleep
         run: sleep 2s
       - name: Check containers
-        run: docker ps
+        run: docker-compose logs
+
 
       - name: Sleep
         run: sleep 2s
       - name: Check containers
-        run: docker ps
+        run: docker-compose logs
+
 
       - name: Sleep
         run: sleep 2s
       - name: Check containers
-        run: docker ps
+        run: docker-compose logs
+
 
       - name: Sleep
         run: sleep 2s
