@@ -26,6 +26,20 @@ jobs:
       - name: List logs
         run: docker logs cloud-react
 
+        
+      - name: Wait for React app to start
+        run: sleep 30s
+
+        
+      - name: List logs
+        run: docker logs cloud-react
+
+      - name: Wait for React app to start
+        run: sleep 30s
+
+      - name: List logs
+        run: docker logs cloud-react
+
       - name: Run Jest tests
         run: docker exec cloud-react npm test
 
