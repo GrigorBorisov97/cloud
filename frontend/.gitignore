@@ -1,5 +1,4 @@
 /node_modules
-/public
 .env
 auth.json
 npm-debug.log
