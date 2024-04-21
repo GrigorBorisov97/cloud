@@ -30,10 +30,13 @@ jobs:
 
       - name: Wait containers
         run: sleep 30s
+      
+      - name: Generate Laravel key
+        run: docker exec cloud-laravel php artisan key:generate
 
-      - name: Test react
+      - name: Test React
         run: docker exec cloud-react npm run test
 
-      - name: Test laravel
+      - name: Test Laravel
         run: docker exec cloud-laravel php artisan test
 
