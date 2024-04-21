@@ -57,4 +57,16 @@ class FolderTest extends TestCase
             $this->assertArrayHasKey('folder_size', $decodedResponse);
         }
     }
+
+    public function testConvertPathToArray()
+    {
+        $controller = new FolderController();
+
+        $example_path_array = ["root", "root/pics", "root/pics/summer", "root/pics/testing", "root/test2"];
+        $response = $controller->convertPathToArray($example_path_array);
+
+        $expected_response = [["root",["pics","summer","testing"],"test2"]];
+
+        $this->assertEquals($response, $expected_response);
+    }
 }
