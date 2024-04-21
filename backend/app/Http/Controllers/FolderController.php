@@ -60,6 +60,10 @@ class FolderController extends Controller
             else if ($size <= 1048576) return round($size / 1024) . 'KB';
             else if ($size <= 1073741824) return round($size / 1024 / 1024) . 'MB';
         }
+
+        if (!is_dir($this->path . '/' . $request->input('path'))) {
+            return response()->json(['error' => 'Directory does not exist'], 404);
+        }
         
         $path = $this->path . '/' . $request->input('path');
         $size = dirSize($path);
@@ -110,8 +114,6 @@ class FolderController extends Controller
 
     private function cleanFolder($path)
     {
-        // echo $path;
-        // echo '<br />';
         $tmp_path = scandir($path);
         $folders = array_filter($tmp_path, function($v, $k) use($path) {
             $is_folder = is_dir($path . '/' . $v);

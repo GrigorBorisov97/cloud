@@ -43,6 +43,7 @@ class FolderTest extends TestCase
         $controller = new FolderController();
         $response = $controller->getInfo($request);
     
+        $this->assertEquals(404, $response->getStatusCode());
         $this->assertJson($response->getContent());
     
         $decodedResponse = json_decode($response->getContent(), true);
