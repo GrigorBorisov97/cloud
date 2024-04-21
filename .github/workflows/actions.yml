@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  react_tests:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,6 +44,7 @@ jobs:
       #     kubectl set image deployment/your_deployment_name your_container_name=your_image_tag
 
   publish:
+      needs: tests
       name: publish image
       runs-on: ubuntu-latest
 
