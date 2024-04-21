@@ -1,4 +1,4 @@
-name: Run Jest tests
+name: Run tests in docker
 
 on:
   push:
@@ -7,15 +7,17 @@ on:
 
 jobs:
   test:
-    name: Run Jest tests
+    name: Run tests in docker
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build and run React app in Docker
-        run: docker-compose up -d
+      - uses: actions/checkout@v3
+      - uses: adambirds/docker-compose-action@v1.3.0
+        with:
+          compose-file: "./docker-compose.yaml"
+          services: |
+          laravel
+          react
       
       - name: Check containers
         run: docker-compose logs
