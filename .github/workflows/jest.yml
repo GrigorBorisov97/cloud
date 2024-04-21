@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and run React app in Docker
-        run: docker-compose up -d react
+        run: docker-compose up -d
       
       - name: Check containers
         run: docker ps
@@ -23,20 +23,6 @@ jobs:
       - name: List folders
         run: docker exec cloud-react ls
       
-      - name: List logs
-        run: docker logs cloud-react
-
-        
-      - name: Wait for React app to start
-        run: sleep 30s
-
-        
-      - name: List logs
-        run: docker logs cloud-react
-
-      - name: Wait for React app to start
-        run: sleep 30s
-
       - name: List logs
         run: docker logs cloud-react
 
