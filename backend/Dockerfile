@@ -2,7 +2,7 @@
 FROM php:8.0-apache
 
 # Set the working directory in the container
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update \
@@ -19,19 +19,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY composer.json composer.lock ./
 
 # Install Composer dependencies
-RUN composer install
+RUN composer install --no-scripts
 
-# Copy the rest of the application code into the container
+# # Copy the rest of the application code into the container
 COPY . .
 
-# Set the appropriate permissions for Laravel
+# # Set the appropriate permissions for Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# # Enable Apache mod_rewrite
 
-# Expose port 80 for the web server
-EXPOSE 8080
+# # Expose port 80 for the web server
+EXPOSE 8000
 
-# Start Apache when the container starts
-CMD ["apache2-foreground"]
+# # Start Apache when the container starts
+CMD ["php", "artisan", "serve"]
