@@ -27,8 +27,8 @@ jobs:
 
       - name: Start React Container
         run: |
-          docker-compose -f docker-compose.yml up -d react
-          docker-compose -f docker-compose.yml logs react
+          docker-compose -f docker-compose.yaml up -d react
+          docker-compose -f docker-compose.yaml logs react
 
       - name: Wait for React to be ready
         run: docker-compose -f docker-compose.yaml exec -T react /bin/bash -c "while ! nc -z localhost 3000; do sleep 1; done;"
