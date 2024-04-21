@@ -20,12 +20,6 @@ jobs:
       - name: Check containers
         run: docker ps
 
-      - name: Wait for React app to start
-        run: sleep 30s
-      
-      - name: Check containers
-        run: docker ps
-
       - name: List folders
         run: docker exec cloud-react ls
       
