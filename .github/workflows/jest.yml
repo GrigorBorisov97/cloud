@@ -18,8 +18,8 @@ jobs:
           services: |
             laravel
             react
-      test-container: laravel
-      test-command: "php artisan test"
+          test-container: laravel
+          test-command: "php artisan test"
       # - name: Check containers
       #   run: docker-compose logs
 
