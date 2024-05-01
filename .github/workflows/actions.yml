@@ -42,11 +42,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Contabo server to known_hosts
-        run: ssh-keyscan -H 31.220.81.184 >> ~/.ssh/known_hosts
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH client
+        run: sudo apt-get install openssh-client -y
 
       - name: Copy code to server
-        run: scp -r ./ user@31.220.81.184:/var/www/cloud
+        run: scp -v -o StrictHostKeyChecking=no ./ root@31.220.81.184:/var/www/cloud
 
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@master
