@@ -41,6 +41,7 @@ jobs:
 
   deploy:
     needs: tests
+    steps:
       - name: Pull changes on server
         uses: appleboy/ssh-action@master
         with:
