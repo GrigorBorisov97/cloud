@@ -23,7 +23,6 @@ COPY composer.json composer.lock ./
 # Install Composer dependencies
 RUN composer install --no-scripts
 
-
 # Copy the rest of the application code into the container
 COPY . .
 
