@@ -18,19 +18,21 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy composer.json and composer.lock and install dependencies before copying code for better caching
 COPY composer.json composer.lock ./
 
+# Copy the .env.example file as .env
+
 # Install Composer dependencies
 RUN composer install --no-scripts
 
-# # Copy the rest of the application code into the container
+
+# Copy the rest of the application code into the container
 COPY . .
 
-# # Set the appropriate permissions for Laravel
+COPY .env.example .env
+
+# Generate application key
+RUN php artisan key:generate
+# Set the appropriate permissions for Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# # Enable Apache mod_rewrite
-
-# # Expose port 80 for the web server
-EXPOSE 8000
-
-# # Start Apache when the container starts
-CMD ["php", "artisan", "serve"]
+# Start Apache when the container starts
+CMD ["php", "artisan", "serve", "--host", "0.0.0.0"]
