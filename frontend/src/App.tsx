@@ -7,8 +7,6 @@ import './App.css';
 
 import Explorer from './pages/Explorer';
 
-// test 123
-
 const router = createBrowserRouter([
   {
     path: "/",
