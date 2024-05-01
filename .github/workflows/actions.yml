@@ -39,39 +39,25 @@ jobs:
       - name: Test Laravel
         run: docker exec cloud-laravel php artisan test
 
-      # - name: Update Kubernetes Deployment
-      #   run: |
-      #     kubectl set image deployment/your_deployment_name your_container_name=your_image_tag
-
-  publish:
-      needs: tests
-      name: publish image
-      runs-on: ubuntu-latest
-
-      steps:
-      - uses: actions/checkout@v3
-      - name: Login
-        run: |
-          echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Build and Publish
-        run: |
-          docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
   deploy:
-    needs: publish
-    name: deploy image
     runs-on: ubuntu-latest
-
     steps:
-    - name: install ssh keys
-      # check this thread to understand why its needed:
-      # <https://stackoverflow.com/a/70447517>
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-    - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose pull && docker compose up -d && exit"
-    - name: cleanup
-      run: rm -rf ~/.ssh
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH client
+        run: sudo apt-get install openssh-client -y
+
+      - name: Copy code to server
+        run: scp -r ./ root@31.220.81.184:/var/www/cloud
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www/cloud
+            # Add any additional deployment steps here
