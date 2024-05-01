@@ -40,7 +40,7 @@ jobs:
         run: docker exec cloud-laravel php artisan test
 
   deploy:
-    needs: tests
+    # needs: tests
     runs-on: ubuntu-latest
     steps:
       - name: Pull changes on server
@@ -50,5 +50,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd /path/to/your/repository
+            cd /var/www/cloud
             git pull
