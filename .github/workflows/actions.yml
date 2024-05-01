@@ -49,7 +49,7 @@ jobs:
         run: sudo apt-get install openssh-client -y
 
       - name: Copy code to server
-        run: scp -r ./ root@31.220.81.184:/var/www/cloud
+        run: ssh -i ${{ secrets.CONTABO }} root@31.220.81.184
 
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@master
