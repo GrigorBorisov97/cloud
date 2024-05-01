@@ -18,7 +18,7 @@ class FolderTest extends TestCase
     public function testGetPath()
     {
         $controller = new FolderController();
-        $expectedPath = storage_path('app/') . 'grigor123' . '/';
+        $expectedPath = storage_path('app/') . 'grigor' . '/';
         $this->assertEquals($expectedPath, $controller->getPath());
     }
 
